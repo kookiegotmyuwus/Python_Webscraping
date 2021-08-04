@@ -37,10 +37,8 @@ def decorator(func):
 def getsoup(username):
     """uses selenium to get soup"""
 
-    # usr=input('Enter Email Id:') 
-    # pwd=input('Enter Password:')
-    usr='ramanu.varsha@gmail.com'
-    pwd='kcufoff1320!'
+    usr=input('Enter Email Id:') 
+    pwd=input('Enter Password:')
 
     driver = webdriver.Firefox()
     driver.get('https://www.facebook.com/')
