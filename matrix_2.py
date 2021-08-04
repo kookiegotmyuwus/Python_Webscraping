@@ -1,10 +1,21 @@
+from typing import Type
+
+
 class matrix:
 
     def __init__(self, matrix,row,col):
         self.m=matrix
         self.row=row
         self.col=col  
-        
+        c=0
+        for i in range(row):
+            for j in range (col):
+                if(matrix[i][j]==None):
+                    c=1
+                    raise TypeError('Dimensions passed are not of int type')
+                    raise IndexError('Dimensions of matrix dont match with row and column value passed')
+                    break
+
     def __repr__(self):
         a=""
         for x in range(0,self.row):
@@ -102,7 +113,7 @@ import unittest
 
 class testing(unittest.TestCase):
 
-    # 10 tests
+    # 12 tests
 
     def setUp(self):
         self.a=matrix([[1,2,3],[4,5,6]],2,3)
@@ -110,41 +121,49 @@ class testing(unittest.TestCase):
         self.c=matrix([[1,2],[3,4],[5,6]],3,2)
         self.d=matrix([[1,4,2,3],[0,1,4,4],[-1,0,1,0],[2,0,4,1]],4,4)
 
-    def test_sumfunc_1(self):
+    def test_exist_1(self):
+        with self.assertRaises(IndexError):
+            self.t=matrix([[1,2,3],[4,5,6]],3,3)
+
+    def test_exist_2(self):
+        with self.assertRaises(TypeError):
+            self.t=matrix([[1,2,3],[4,5,6]],3,[3,2])
+
+    def test_sumfunc_3(self):
         #act
         result=self.a+self.b
         #assert
         self.assertEqual(result,[[3, 5, 7], [9, 11, 13]])
 
-    def test_sumfunc_2(self):
+    def test_sumfunc_4(self):
         with self.assertRaises(ValueError):
             self.a+self.c
 
-    def test_subfunc_3(self):
+    def test_subfunc_5(self):
         result=self.a-self.b
         self.assertEqual(result,[[-1, -1, -1], [-1, -1, -1]])
 
-    def test_subfunc_4(self):
+    def test_subfunc_6(self):
         with self.assertRaises(ValueError):
             self.a-self.c
 
-    def test_mulfunc_5(self):
+    def test_mulfunc_7(self):
         result=self.a*self.c
         self.assertEqual(result,[[22, 28], [49, 64]])
     
-    def test_mulfunc_6(self):
+    def test_mulfunc_8(self):
         with self.assertRaises(ValueError):
             self.a*self.b
 
-    def test_det_7(self):
+    def test_det_9(self):
         result=self.d.determinant()
         self.assertEqual(result,65)
 
-    def test_det_8(self):
+    def test_det_10(self):
         with self.assertRaises(ValueError):
             self.c.determinant()
 
-    def test_exp_9(self):
+    def test_exp_11(self):
         result=self.d.exponent(3)
         result1=matrix([[17,28,162,69],
                                 [-4,17,68,24], 
@@ -152,7 +171,7 @@ class testing(unittest.TestCase):
                                 [2,8,72,39]],4,4)
         self.assertEqual(result.__repr__(),result1.__repr__())
 
-    def test_exp_10(self):
+    def test_exp_12(self):
         with self.assertRaises(ValueError):
             self.c.exponent(3)
 
