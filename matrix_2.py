@@ -8,13 +8,10 @@ class matrix:
         self.row=row
         self.col=col  
         c=0
-        for i in range(row):
-            for j in range (col):
-                if(matrix[i][j]==None):
-                    c=1
-                    raise TypeError('Dimensions passed are not of int type')
-                    raise IndexError('Dimensions of matrix dont match with row and column value passed')
-                    break
+        if(type(row)!=int or type(col)!=int):
+            raise TypeError('Dimensions passed are not of int type')
+        if(len(matrix[0])!=col or len(matrix)!=row):
+            raise IndexError('Dimensions of matrix dont match with row and column value passed')
 
     def __repr__(self):
         a=""
