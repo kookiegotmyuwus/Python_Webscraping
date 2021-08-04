@@ -22,8 +22,9 @@ def decorator(func):
     def inner(user_name):
         mydb=mysqlconnect()
         mycursor=mydb.cursor()
-        sql = "SELECT * FROM user WHERE username = '"+user_name+"'"
-        mycursor.execute(sql)
+        sql = "SELECT * FROM user WHERE username =%s"
+        val=(user_name,)
+        mycursor.execute(sql,val)
         myresult = mycursor.fetchall()
         c=0
         for x in myresult:
@@ -38,7 +39,7 @@ def getsoup(username):
     """uses selenium to get soup"""
 
     usr=input('Enter Email Id:') 
-    pwd=input('Enter Password:')
+    pwd=getpass('Enter Password:')
 
     driver = webdriver.Firefox()
     driver.get('https://www.facebook.com/')
@@ -147,8 +148,9 @@ def scrap(username):
         return out
 
     else:
-        sql = "SELECT * FROM user WHERE username = '"+username+"'"
-        mycursor.execute(sql)
+        sql = "SELECT * FROM user WHERE username =%s"
+        val=(username,)
+        mycursor.execute(sql,val)
         myresult=mycursor.fetchall()
         for x in myresult:
             name=x[1]
